@@ -125,7 +125,7 @@ $("#zoo-population").on("click","button.thing-button", function(){
             // Creating an element to hold the image
             var image = $("<img>").attr("src", stillURL).attr("data-still", stillURL).attr("data-animate", animatedURL);
 
-            image.addClass(newButton + " clickImg");
+            image.addClass("clickImg");
             $( "div.demo-container" ).text();
             // Appending the image
             newThingDiv.append(image);
