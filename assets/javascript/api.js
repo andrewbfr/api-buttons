@@ -52,40 +52,53 @@ function createButtons(){
         }
 };
 
-function handleAssortment(){
 
-        var thingItself = $(this).attr("data-name");
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + thingItself + "&api_key=9BlNYmwgDWvberRjgJV9QfSnyt8O6fja&limit=10";
+// look at this!!!
+// $(this).attr("data-name")
+// so useful!!!
+
+function handleAssortment(){
+  console.log("inside handler");
+        var newButton = $(this).attr("data-name");
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + newButton + "&api_key=9BlNYmwgDWvberRjgJV9QfSnyt8O6fja&limit=10";
 
         $.ajax({
           url: queryURL,
           method: "GET"
         }).done(function(response) {
+          
           console.log(response);
+          console.log(newButton);
 
-          // Creating a div to hold the gifs
-          var newThingDiv = $("<div class='newGif'>");
+          var newGif = response.data;
 
-          // Storing the rating data
-          var rating = response.rating;
 
-          // Creating an element to have the rating displayed
-          var pOne = $("<p>").text("Rating: " + rating);
+          for (var i = 0; i < newGif.length; i++) {
 
-          // Displaying the rating
-          newThingDiv.append(pOne);
+            var newThingDiv = $("<div class='newGif'>");
 
-          // Retrieving the URL for the image
-          var imgURL = response.images.fixed_height.url;
+             // Storing the rating data
+            var rating = newGif.rating;
 
-          // Creating an element to hold the image
-          var image = $("<img>").attr("src", imgURL);
+            // Creating an element to have the rating displayed
+            var pOne = $("<p>").text("Rating: " + rating);
 
-          // Appending the image
-          newThing.append(image);
+            // Displaying the rating
+            newThingDiv.append(pOne);
 
-          // Putting the gifs above the previous gifs
-          $("#zoo-population").prepend(newThingDiv);
+            // Retrieving the URL for the image
+            var imgURL = newGif.images.fixed_height.url;
+
+            // Creating an element to hold the image
+            var image = $("<img>").attr("src", imgURL);
+
+            // Appending the image
+            newThing.append(image);
+
+            // Putting the gifs above the previous gifs
+            $("#zoo-population").prepend(newThingDiv);
+        
+        }
         });
 
       };
@@ -120,16 +133,21 @@ $("#add-things").click(function(){
 
   $("#zoo-input").val("");
 
-  console.log(userInput);
-
 });
 
 
 // calling AJAX and displaying the 10 gifs per button click. the .on() means it will access newly created elements, while a .click(function()) does not bind itself to dynamically created elements.
+
+//ways to get most recent element in the array
+// better to get the name of the thing that was created.
+
 $("#zoo-population").on("click","button.thing-button", function(){
 
-    alert("ti tog uoy yeh");
-    // handleAssortment();
+    //this is important to know, you need to make sure that when your gif/new.div image display function is called, it can reference the correct value with "this" and use it in its response.data, etc.
+    console.log($(this).attr("data-name"));
+
+    handleAssortment();
+
 });
 
 
