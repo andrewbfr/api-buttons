@@ -139,7 +139,7 @@ $("#zoo-population").on("click","button.thing-button", function(){
             newThingDiv.append(pOne);
 
             // Retrieving the URL for the image
-            var imgURL = newGif[i].images.fixed_height.url;
+            var imgURL = newGif[i].images.fixed_height_still.url;
 
             // Creating an element to hold the image
             var image = $("<img>").attr("src", imgURL);
