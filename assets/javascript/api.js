@@ -14,111 +14,126 @@
     // make sure to call the response.name correctly from the giphy JSON
     // ajax
 
+    // make some code to prevent duplicate buttons!!!!!
 
+
+//checking
 console.log("one");
+
 //variables
+
 var apiKey = "9BlNYmwgDWvberRjgJV9QfSnyt8O6fja"
-// var userInput = $( "#zoo-input" ).val();
+var userInput = $( "#zoo-input" ).val();
 // var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=9BlNYmwgDWvberRjgJV9QfSnyt8O6fja&limit=10";
-var things = [];
+var master = [];
 
 //functions
-// 
 
 console.log("two");
 
-function createDisplay(){
+function createButtons(){
 
+        //this should prevent recreating items in the list...
         $("#zoo-population").empty();
 
-        // Looping through the array of movies
-        for (var i = 0; i < things.length; i++) {
+        // Looping through the array of buttons and doing classes, etc. all at once.
+        for (var i = 0; i < master.length; i++) {
 
           // Then dynamicaly generating buttons for each thing in array
           var a = $("<button>");
           // Adding classes to our button
           a.addClass("thing-button btn btn-info text-center");
           // Adding a data-attribute
-          a.attr("data-name", things[i]);
+          a.attr("data-name", master[i]);
           // Providing the initial button text
-          a.text(things[i]);
+          a.text(master[i]);
           // Adding the button to the buttons-view div
           $("#zoo-population").append(a);
         }
 };
 
-// function handleGifs(){
+function handleAssortment(){
 
-//         var thingItself = $(this).attr("data-name");
-//         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + thingItself + "&api_key=9BlNYmwgDWvberRjgJV9QfSnyt8O6fja&limit=10";
+        var thingItself = $(this).attr("data-name");
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + thingItself + "&api_key=9BlNYmwgDWvberRjgJV9QfSnyt8O6fja&limit=10";
 
-//         $.ajax({
-//           url: queryURL,
-//           method: "GET"
-//         }).done(function(response) {
-//           console.log(response);
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).done(function(response) {
+          console.log(response);
 
-//           // Creating a div to hold the gifs
-//           var newThingDiv = $("<div class='newGif'>");
+          // Creating a div to hold the gifs
+          var newThingDiv = $("<div class='newGif'>");
 
-//           // Storing the rating data
-//           var rating = response.rating;
+          // Storing the rating data
+          var rating = response.rating;
 
-//           // Creating an element to have the rating displayed
-//           var pOne = $("<p>").text("Rating: " + rating);
+          // Creating an element to have the rating displayed
+          var pOne = $("<p>").text("Rating: " + rating);
 
-//           // Displaying the rating
-//           newThingDiv.append(pOne);
+          // Displaying the rating
+          newThingDiv.append(pOne);
 
-//           // Retrieving the URL for the image
-//           var imgURL = response.images.fixed_height.url;
+          // Retrieving the URL for the image
+          var imgURL = response.images.fixed_height.url;
 
-//           // Creating an element to hold the image
-//           var image = $("<img>").attr("src", imgURL);
+          // Creating an element to hold the image
+          var image = $("<img>").attr("src", imgURL);
 
-//           // Appending the image
-//           newThing.append(image);
+          // Appending the image
+          newThing.append(image);
 
-//           // Putting the entire movie above the previous movies
-//           $("#zoo-population").prepend(newThingDiv);
-//         });
+          // Putting the gifs above the previous gifs
+          $("#zoo-population").prepend(newThingDiv);
+        });
 
-//       };
+      };
 
-function alterList(){
+
+function alterMasterList(){
+  //if input is blank
   if ($("#zoo-input").val() === ""){
-    alert("type something fun");
-  } else {
-  things.push($("#zoo-input").val());
+    alert("type something fun!");
+  } //otherwise do what I actually want this function to do
+    else {
+  master.push($("#zoo-input").val());
   }
 };
 
 
 //main processes
 
+//main addition of buttons from the input
 $("#add-things").click(function(){
   //this keeps the divs from disappearing, and the console from freaking out.
   event.preventDefault();
 
-  alterList();
+  alterMasterList();
 
-  console.log(things);
-
-  // handleGifs();
+  console.log(master);
 
 
   console.log("click-button-works");
 
-  createDisplay();
+  createButtons();
 
   $("#zoo-input").val("");
 
+  console.log(userInput);
+
 });
 
-//have this function outside of the on.click for now, will move into the click when able to push new items into the array.
-// createDisplay();
 
-console.log("function inside of your function");
+// calling AJAX and displaying the 10 gifs per button click. the .on() means it will access newly created elements, while a .click(function()) does not bind itself to dynamically created elements.
+$("#zoo-population").on("click","button.thing-button", function(){
+
+    alert("ti tog uoy yeh");
+    // handleAssortment();
+});
+
+
+
 
 
 
