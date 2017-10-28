@@ -81,6 +81,8 @@ $("#zoo-population").on("click","button.thing-button", function(){
     //trying to clear the div of previous gif images, too many will make super slow page
 
     $("#gif-population").empty();
+    // show more instructions for users.
+    $("#hide-em").removeAttr("hidden");
 
     //NICE
 
