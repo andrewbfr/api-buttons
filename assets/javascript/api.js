@@ -185,7 +185,7 @@ $("#zoo-population").on("click","button.thing-button", function(){
 $("#gif-population").on("click","img.clickImg", function(){
   console.log("you clicked a dynamically created image")
 
-  var still = $(this).attr("src");
+  var still = $(this).attr("data-still");
   console.log(still);
 
   var animated = $(this).attr("data-animate");
@@ -195,7 +195,7 @@ $("#gif-population").on("click","img.clickImg", function(){
       $(this).attr("src", animated);
 
     } else if ($(this).attr("src") === animated) { 
-      $(this).attr("src", ($(this).attr("data-still")))
+      $(this).attr("src", still)
 
     }
 
