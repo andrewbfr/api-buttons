@@ -93,6 +93,7 @@ $("#add-things").click(function(){
 
 //.on click for displaying gifs
 $("#zoo-population").on("click","button.thing-button", function(){
+    
     //trying to clear the div of previous gif images, too many will make super slow page
 
     $("#gif-population").empty();
@@ -142,6 +143,10 @@ $("#zoo-population").on("click","button.thing-button", function(){
 
             // Creating an element to hold the image
             var image = $("<img>").attr("src", imgURL);
+
+            // to find the images later and be able to select their still and animated versions. this might be where to pick up on Saturday, make sure this is really a good way to reference the individual images, you may need to do it all here instead of another on.click function call. how can you add the super nice data-name attribute to the newly created images with their search title as the value?
+
+            image.addClass(newButton)
 
             // Appending the image
             newThingDiv.append(image);
