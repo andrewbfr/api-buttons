@@ -20,7 +20,7 @@ console.log("one");
 var apiKey = "9BlNYmwgDWvberRjgJV9QfSnyt8O6fja"
 // var userInput = $( "#zoo-input" ).val();
 // var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=9BlNYmwgDWvberRjgJV9QfSnyt8O6fja&limit=10";
-var things = ["toast", "hamsters", "boulders", "cheese", "fish"];
+var things = [];
 
 //functions
 // 
@@ -37,7 +37,7 @@ function createDisplay(){
           // Then dynamicaly generating buttons for each thing in array
           var a = $("<button>");
           // Adding classes to our button
-          a.addClass("thing-button btn btn-info");
+          a.addClass("thing-button btn btn-info text-center");
           // Adding a data-attribute
           a.attr("data-name", things[i]);
           // Providing the initial button text
@@ -86,13 +86,15 @@ function createDisplay(){
 //       };
 
 function alterList(){
+  if ($("#zoo-input").val() === ""){
+    alert("type something fun");
+  } else {
   things.push($("#zoo-input").val());
+  }
 };
 
 
 //main processes
-
-// $(document).on("click", "#add-toast", handleGifs());
 
 $("#add-things").click(function(){
   //this keeps the divs from disappearing, and the console from freaking out.
