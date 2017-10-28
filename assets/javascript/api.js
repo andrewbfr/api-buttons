@@ -93,6 +93,11 @@ $("#add-things").click(function(){
 
 //.on click for displaying gifs
 $("#zoo-population").on("click","button.thing-button", function(){
+    //trying to clear the div of previous gif images, too many will make super slow page
+
+    $("#gif-population").empty();
+
+    //NICE
 
     //this is important to know, you need to make sure that when your gif/new.div image display function is called, it can reference the correct value with "this" and use it in its response.data, etc.
       console.log($(this).attr("data-name"));
