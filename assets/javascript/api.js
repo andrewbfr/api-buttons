@@ -13,23 +13,20 @@
     // function to call the giphy api on a click
     // make sure to call the response.name correctly from the giphy JSON
     // ajax
-
+//----TO DO
     // make some code to prevent duplicate buttons!!!!!
+    // center gifs or float into a grid
+    // hide and display some text to say "click the images to animate" and such things
+    //maybe make one clicked into animation turn off all other animations
 
 
-//checking
-console.log("one");
-
-//variables
+//---------- variables
 
 var apiKey = "9BlNYmwgDWvberRjgJV9QfSnyt8O6fja"
-var userInput = $( "#zoo-input" ).val();
-// var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=9BlNYmwgDWvberRjgJV9QfSnyt8O6fja&limit=10";
 var master = [];
 
-//functions
+//---------- functions
 
-console.log("two");
 
 function createButtons(){
 
@@ -53,11 +50,6 @@ function createButtons(){
 };
 
 
-// look at this!!!
-// $(this).attr("data-name")
-// so useful!!!
-
-
 function alterMasterList(){
   //if input is blank
   if ($("#zoo-input").val() === ""){
@@ -68,12 +60,7 @@ function alterMasterList(){
   }
 };
 
-
-
-//main processes
-
-
-
+//---------- MAIN PROCESSES
 //main addition of buttons from the input
 $("#add-things").click(function(){
 
@@ -81,15 +68,12 @@ $("#add-things").click(function(){
   event.preventDefault();
 
   alterMasterList();
-
+  $(".for-hiding").removeAttr("hidden");
   createButtons();
 
   $("#zoo-input").val("");
 
 });
-
-
-
 
 //.on click for displaying gifs
 $("#zoo-population").on("click","button.thing-button", function(){
@@ -117,16 +101,10 @@ $("#zoo-population").on("click","button.thing-button", function(){
           method: "GET"
         }).done(function(response) {
           
-          console.log(response);
-          console.log(newButton);
-
           var newGif = response.data;
 
           for (var i = 0; i < newGif.length; i++) {
 
-           
-            console.log(newGif[i]);
- //this newGif class is what you will listen for when calling the still and animated versions of the gif files
             var newThingDiv = $("<div class='newGif'>");
 
              // Storing the rating data
@@ -145,8 +123,6 @@ $("#zoo-population").on("click","button.thing-button", function(){
             // Creating an element to hold the image
             var image = $("<img>").attr("src", stillURL).attr("data-still", stillURL).attr("data-animate", animatedURL);
 
-            // to find the images later and be able to select their still and animated versions. this might be where to pick up on Saturday, make sure this is really a good way to reference the individual images, you may need to do it all here instead of another on.click function call. how can you add the super nice data-name attribute to the newly created images with their search title as the value?
-
             image.addClass(newButton + " clickImg");
             $( "div.demo-container" ).text();
             // Appending the image
@@ -160,36 +136,14 @@ $("#zoo-population").on("click","button.thing-button", function(){
 
 });
 
- // $(".gif").on("click", function() {
- //      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
- //      var state = $(this).attr("data-state");
- //      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
- //      // Then, set the image's data-state to animate
- //      // Else set src to the data-still value
- //      if (state === "still") {
- //        $(this).attr("src", $(this).attr("data-animate"));
- //        $(this).attr("data-state", "animate");
- //      } else {
- //        $(this).attr("src", $(this).attr("data-still"));
- //        $(this).attr("data-state", "still");
- //      }
- //    });
-
-
-//function for changing the source of the image from the fixed_height_still to the fixed_height_url
-  // add an attr with the value of the still in the for-loop
-  // add if, else in an onlclick that changes the img src if the image is one or the other.
-  // so you will be redefining the img src with the animated version.
-//on.click for "pausing"
-
+// on.click of new gifs to allow animation toggling
 $("#gif-population").on("click","img.clickImg", function(){
+  
   console.log("you clicked a dynamically created image")
 
   var still = $(this).attr("data-still");
-  console.log(still);
 
   var animated = $(this).attr("data-animate");
-  console.log(animated);
 
     if ($(this).attr("src") === still){
       $(this).attr("src", animated);
