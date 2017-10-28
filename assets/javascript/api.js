@@ -139,14 +139,16 @@ $("#zoo-population").on("click","button.thing-button", function(){
             newThingDiv.append(pOne);
 
             // Retrieving the URL for the image
-            var imgURL = newGif[i].images.fixed_height_still.url;
+            var stillURL = newGif[i].images.fixed_height_still.url;
+            var animatedURL = newGif[i].images.fixed_height.url;
+
             // Creating an element to hold the image
-            var image = $("<img>").attr("src", imgURL);
+            var image = $("<img>").attr("src", stillURL).attr("data-still", stillURL).attr("data-animate", animatedURL);
 
             // to find the images later and be able to select their still and animated versions. this might be where to pick up on Saturday, make sure this is really a good way to reference the individual images, you may need to do it all here instead of another on.click function call. how can you add the super nice data-name attribute to the newly created images with their search title as the value?
 
-            image.addClass(newButton)
-
+            image.addClass(newButton + " clickImg");
+            $( "div.demo-container" ).text();
             // Appending the image
             newThingDiv.append(image);
 
@@ -158,9 +160,44 @@ $("#zoo-population").on("click","button.thing-button", function(){
 
 });
 
-//on.click for "pausing"
-$("#gif-population").on("click","button.thing-button", function(){
+ // $(".gif").on("click", function() {
+ //      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+ //      var state = $(this).attr("data-state");
+ //      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+ //      // Then, set the image's data-state to animate
+ //      // Else set src to the data-still value
+ //      if (state === "still") {
+ //        $(this).attr("src", $(this).attr("data-animate"));
+ //        $(this).attr("data-state", "animate");
+ //      } else {
+ //        $(this).attr("src", $(this).attr("data-still"));
+ //        $(this).attr("data-state", "still");
+ //      }
+ //    });
 
+
+//function for changing the source of the image from the fixed_height_still to the fixed_height_url
+  // add an attr with the value of the still in the for-loop
+  // add if, else in an onlclick that changes the img src if the image is one or the other.
+  // so you will be redefining the img src with the animated version.
+//on.click for "pausing"
+
+$("#gif-population").on("click","img.clickImg", function(){
+  console.log("you clicked a dynamically created image")
+
+  var still = $(this).attr("src");
+  console.log(still);
+
+  var animated = $(this).attr("data-animate");
+  console.log(animated);
+
+    if ($(this).attr("src") === still){
+      $(this).attr("src", animated);
+
+    } else if ($(this).attr("src") === animated) { 
+      $(this).attr("src", ($(this).attr("data-still")))
+
+    }
 
 });
 
