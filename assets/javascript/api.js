@@ -16,7 +16,6 @@
 //----TO DO
     // make some code to prevent duplicate buttons!!!!!
     // center gifs or float into a grid
-    // hide and display some text to say "click the images to animate" and such things
     //maybe make one clicked into animation turn off all other animations
 
 
